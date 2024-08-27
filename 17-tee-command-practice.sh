@@ -23,10 +23,10 @@ CHECK_ROOT(){
 VALIDATE(){
     if [ $1 -ne 0 ]
     then
-        echo -e "$2 is...$R FAILED $N" &>>$LOGFILE | tee -a $LOGFILE
+        echo -e "$2 is...$R FAILED $N" | tee -a $LOGFILE
         exit 1
     else
-        echo -e "$2 is... $G SUCCESS $N" &>>$LOGFILE | tee -a $LOGFILE
+        echo -e "$2 is... $G SUCCESS $N" | tee -a $LOGFILE
     fi
 }
 USAGE(){
