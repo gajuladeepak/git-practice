@@ -15,7 +15,7 @@ Y="\e[33m"
 CHECK_ROOT(){
     if [ $USERID -ne 0 ]
     then
-        echo "$R Please run this script with root priveleges $N" &>>$LOGFILE
+        echo "$R Please run this script with root priveleges $N" | tee -a &>>$LOGFILE
         exit 1
     fi
 }
@@ -23,10 +23,10 @@ CHECK_ROOT(){
 VALIDATE(){
     if [ $1 -ne 0 ]
     then
-        echo -e "$2 is...$R FAILED $N" &>>$LOGFILE
+        echo -e "$2 is...$R FAILED $N" &>>$LOGFILE | tee -a &>>LOGFILE
         exit 1
     else
-        echo -e "$2 is... $G SUCCESS $N" &>>$LOGFILE
+        echo -e "$2 is... $G SUCCESS $N" &>>$LOGFILE | tee -a &>>LOGFILE
     fi
 }
 USAGE(){
@@ -34,10 +34,10 @@ USAGE(){
     exit 1
 }
 
-echo "Script started executing at: $(date)" &>>LOGFILE
+echo "Script started executing at: $(date)" &>>LOGFILE | tee -a &>>$LOGFILE
 CHECK_ROOT
 if [ $# -eq 0 ]
-then
+then 
     USAGE
 fi
 
