@@ -17,6 +17,7 @@ fi
 FILES=$(find $SOURCE_DIR -name "*.log" -mtime +14)
 echo "Files: $FILES"
 
+#Do not the word "line" it is reserved word
 while IFS= read -r file #IFS, internal field separator, empty it will ignore white spaces. -r is for not to ignore special characters like /
 do 
     echo "Deleting file: $line"
