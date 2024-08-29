@@ -26,6 +26,7 @@ USAGE(){
 if [ $# -lt 2 ]
 then
     USAGE
+    exit 1
 fi
 
 #checking whether the source directory exists or not
