@@ -4,7 +4,7 @@
 #i will create a destination folder(backup) in /home/ec2-user/backup
 # before running the script create log files in app-logs
 #cd app-logs/
-#touch 20240101 mysql.log
+#touch -d 20240101 mysql.log
 
 
 SOURCE_DIR=$1
