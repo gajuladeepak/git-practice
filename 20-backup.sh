@@ -52,7 +52,7 @@ then
     find ${SOURCE_DIR} -name "*.log" -mtime +14 | zip "$ZiP_FILE" -@ #here we are zipping all the files returned by find command and file name is ZIP_FILE
 
     #check if zip is successfully created or not
-    if [ -f $ZiP_FILE ]
+    if [ -f $ZIP_FILE ]
     then
         echo "Successfully zipped files older than $DAYS"
 
