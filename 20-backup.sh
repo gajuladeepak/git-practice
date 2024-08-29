@@ -1,5 +1,8 @@
 #!bin/bash
 
+#i will create a source folder(app-logs) in /home/ec2-user/app-logs
+#i will create a destination folder(backup) in /home/ec2-user/backup
+
 SOURCE_DIR=$1
 DEST_DIR=$2
 
