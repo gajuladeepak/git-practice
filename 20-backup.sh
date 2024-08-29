@@ -15,7 +15,7 @@ USAGE(){
 }
 
 #cheking whether the source / destination are provided
-if[ $# -lt 2 ]
+if [ $# -lt 2 ]
 then
     USAGE
 fi
