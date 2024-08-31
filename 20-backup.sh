@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 
 #i will create a source folder(app-logs) in /home/ec2-user/app-logs /mkdir -d /home/ec2-user/app-logs
 #i will create a destination folder(backup) in /home/ec2-user/backup / mkdir -d /home/ec2-user/backup
