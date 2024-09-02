@@ -75,3 +75,12 @@ else
 
 fi
 
+#to make this script work as command 
+#1.we need to give execution permission to this script command: chmod +x 20-backup.sh
+# to make it acessible to every one like pwd command everyone can access it 
+#All our command will be in /bin directory
+# when we move this script(20-backup.sh) to /bin directory any person can this script as command
+#command: sudo cp 20-backup.sh /bin/backup
+#cd
+#backup /home/ec2-user/app-logs /home/ec2-user/backup
+
