@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-#first we need to create logs folder
+#first we need to create "logs' folder
 #if the folder exist we don't need to create the folder again
 #before running create log files in /home/ec2-user/logs
 #touch -d 202040101 mysql.log #here we are creating with back dates therefore we are using -d
