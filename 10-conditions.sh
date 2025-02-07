@@ -1,13 +1,13 @@
 #!bin/bash
-NUMBER1=$1
-if [ $NUMBER1 -gt 20 ] #gt 
+NUMBER=$1
+
+if [ $NUMBER -gt 20 ]
 then
-    echo "Given Number: $NUMBER1 is greater than 20"
+    echo "Given number: $NUMBER is greater than 20"
 else
-    echo "Given Number: $NUMBER1 is less than 20"
+    echo "Given number: $NUMBER is less than 20"
 
 fi
-
 #gt greater than
 #lt less than
 #eq equal to
