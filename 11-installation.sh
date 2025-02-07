@@ -16,6 +16,7 @@ then
     if [ $? -ne 0 ]
     then 
         echo "Git installation is failed... Try again"
+        exit 1
     else
         echo "Git installation is successfull"
     fi
