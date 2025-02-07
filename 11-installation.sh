@@ -21,3 +21,4 @@ then
     fi
 else
     echo "Git is already installed"
+fi
