@@ -8,7 +8,7 @@ N="\e[0"
 CHECK_ROOT() {
     if [ $USERID -ne 0 ]
     then 
-        echo "Root priveleges Requried"
+        echo -e " $R Root priveleges Requried $N"
         exit 1
     fi
 }
