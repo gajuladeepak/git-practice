@@ -16,7 +16,7 @@ CHECK_ROOT() {
 
     if [ $USERID -ne 0 ]
     then
-        echo "Please run the cript with user priveleges"
+        echo "$R Please run the cript with user priveleges $N"
 
     fi
 }
