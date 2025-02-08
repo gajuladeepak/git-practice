@@ -25,7 +25,7 @@ CHECK_ROOT() {
 }
 
 USAGE(){
-    echo "$R USAGE:: $N Expected Inputs sudo sh 16-redirectors.sh package1 package2.."
+    echo -e "$R USAGE:: $N Expected Inputs sudo sh 16-redirectors.sh package1 package2.."
 }
 
 
