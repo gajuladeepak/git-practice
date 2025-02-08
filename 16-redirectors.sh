@@ -1,6 +1,6 @@
 #!bin/bash
 
-#usually logs will be in /var/log
+#usually logs will be in /var/log for linux
 #we need to create a folder in /var/log 
 #let say i am creating a folder named (shell-script) in /var/log/shell-script
 #file name should in specified foemat
@@ -23,7 +23,7 @@ Y="\e[33m"
 CHECK_ROOT(){
     if [ $USERID -ne 0 ]
     then
-        echo "$R Please run this script with root priveleges $N" | tee -a $LOGFILE
+        echo "$R Please run this script with root priveleges $N" &>>$LOGFILE
         exit 1
     fi
 }
@@ -31,10 +31,10 @@ CHECK_ROOT(){
 VALIDATE(){
     if [ $1 -ne 0 ]
     then
-        echo -e "$2 is...$R FAILED $N" | tee -a $LOGFILE
+        echo -e "$2 is...$R FAILED $N" &>>$LOGFILE
         exit 1
     else
-        echo -e "$2 is... $G SUCCESS $N" | tee -a $LOGFILE
+        echo -e "$2 is... $G SUCCESS $N" &>>$LOGFILE
     fi
 }
 
@@ -44,8 +44,9 @@ USAGE(){
     exit 1
 }
 
-echo "Script started executing at: $(date)" &>>LOGFILE | tee -a $LOGFILE
+echo "Script started executing at: $(date)" 
 CHECK_ROOT
+
 if [ $# -eq 0 ]
 then 
     USAGE
@@ -56,10 +57,10 @@ do
     dnf list installed $package &>>$LOGFILE
     if [ $? -ne 0 ]
     then
-        echo "$package is not installed, going to install it.."| tee -a $LOGFILE
+        echo "$package is not installed, going to install it.." &>>$LOGFILE
         dnf install $package -y &>>$LOGFILE
         VALIDATE $? "installing $package"
     else
-        echo -e "$package is already $Y installed..nothing to do $N" | tee -a $LOGFILE
+        echo -e "$package is already $Y installed..nothing to do $N" &>>$LOGFILE
     fi
 done
