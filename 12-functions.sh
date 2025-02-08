@@ -23,7 +23,7 @@ VALIDATE(){
 
 CHECK_ROOT
 
-dnf list installed gitt -y
+dnf list installed git -y
 
 VALIDATE $? "Listing Git"
 
