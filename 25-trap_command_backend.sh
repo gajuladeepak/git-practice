@@ -25,7 +25,7 @@ VALIDATE(){
     echo -e "$R Command Failed: $2 $N" | tee -a $LOGFILE
 }
 
-trap 'VALIDATE "${LINE_NO}" "${BASH_COMMAND}"' ERR
+trap 'VALIDATE "${LINENO}" "${BASH_COMMAND}"' ERR
 
 echo "Script started executing at: $(date)" | tee -a $LOGFILE
 CHECK_ROOT
