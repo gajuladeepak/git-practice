@@ -23,6 +23,7 @@ CHECK_ROOT(){
 VALIDATE(){
     echo -e "$R Error at Line NO:$1 $N" | tee -a $LOGFILE
     echo -e "$R Command Failed: $2 $N" | tee -a $LOGFILE
+    exit 1
 }
 
 trap 'VALIDATE "${LINENO}" "${BASH_COMMAND}"' ERR
