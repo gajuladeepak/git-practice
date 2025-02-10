@@ -57,18 +57,18 @@ echo $FILES
 
 if [ -z $FILES ]
 then
-    echo "Files are not present greater than $DAYS"
+    echo "$G Files are not present $N greater than $DAYS"
     exit 1
 
 else
-    echo "Files found"
+    echo "$G Files found $N"
     ZIP_FILE="$DEST_DIR/app-logs-$TIMESTAMP.zip"
     echo $ZIP_FILE
     find ${SOURCE_DIR} -name "*.log" -mtime +$DAYS | zip "$ZIP_FILE" -@
 
     if [ -f $ZIP_FILE ] # -f is for files
     then
-        echo "Successfully zipped files older than $DAYS"
+        echo "$G Successfully zipped $N files older than $DAYS"
 
         #remove the files after zipping
         while IFS= read -r file #IFS, internal field separator, empty it will ignore white spaces. -r is for not to ignore special characters like /
