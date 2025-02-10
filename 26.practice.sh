@@ -75,4 +75,5 @@ else
 
     else
     echo "Zipping the files is failed"
+    fi
 fi
