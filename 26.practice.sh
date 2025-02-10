@@ -93,6 +93,7 @@ do
     if [ $USAGE -ge $DISK_THRESHOLD ]
     then
         echo "$PARTITION is mor then $DISK_THRESHOLD, current value is $USAGE"
+    fi
     
 
 done <<< $DISK_USAGE
