@@ -52,12 +52,13 @@ then
     exit 1
 fi
 
-FILES=$(find $SOURCE_DIR -name "*.log" -mtime $DAYS)
+FILES=$(find $SOURCE_DIR -name "*.log" -mtime +$DAYS)
 echo $FILES
 
 if [ -z $FILES ]
 then
     echo "Files are not present greater than $DAYS"
+    exit 1
 
 else
     ZIP_FILE="$DEST_DIR/app-logs-$TIMESTAMP.zip"
