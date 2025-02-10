@@ -73,7 +73,7 @@ else
         #remove the files after zipping
         while IFS= read -r file #IFS, internal field separator, empty it will ignore white spaces. -r is for not to ignore special characters like /
         do 
-            echo "$Y Deleting file: $file $N"
+            echo -e "$G Deleting file: $file $N"
             rm -rf $file
 
         done <<< $FILES 
