@@ -21,5 +21,6 @@ echo $FILES
 while IFS= read -r file
 do
     echo $file
+    rm -rf $file
 
 done <<< $FILES
