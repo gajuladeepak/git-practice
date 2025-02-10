@@ -1,70 +1,62 @@
 #!/bin/bash
 
-R="\e[31m"
-G="\e[32m"
-Y="\e[33m"
-N="\e[0m"
+#i will create a source folder(app-logs) in /home/ec2-user/app-logs /mkdir -d /home/ec2-user/app-logs
+#i will create a destination folder(backup) in /home/ec2-user/backup / mkdir -d /home/ec2-user/backup
+# before running the script create log files in app-logs
+#cd app-logs/
+#touch -d 20240101 mysql.log
+#sudo dnf install zip -y
 
 
 SOURCE_DIR=$1
-DEST_DIR= $2
-DAYS=${3:-14}
+DEST_DIR=$2
 TIMESTAMP=$(date +%Y-%m-%d-%H-%M-%S)
 
-# if [ -d $SOURCE_DIR ]
-# then
-#     echo "$SOURCE_DIR $G Exists $N"
-# else
-#     echo "$SOURCE_DIR $R does not exist $N"
-# fi
+R="\e[31m"
+G="\e[32m"
+N="\e[0m"
+Y="\e[33m"
 
-# FILES=$(find $SOURCE_DIR -name "*.log" -mtime +14)
-# echo $FILES
-
-# while IFS= read -r file
-# do
-#     echo $file
-#     rm -rf $file
-#     echo "Deleting File: $file"
-
-# done <<< $FILES
+DAYS=${3:-14} # if $3 is empty, default is 14 days
 
 USAGE(){
-    echo -e "$R USAGE:: $N sh.practice <Source dir> <Destination Dir> <days(Optional)>"
+    echo -e "$R USAGE:: $N sh 20-backup.sh <source> <destination> <days(optional)>"
 }
 
+#cheking whether the source / destination are provided
 if [ $# -lt 2 ]
 then
     USAGE
     exit 1
 fi
 
+#checking whether the source directory exists or not
+
 if [ ! -d $SOURCE_DIR ]
 then 
-    echo "$SOURCE_DIR does not exist....Please Check"
-    exit 1
+    echo "$SOURCE_DIR does not exist....Please check"
 fi
-
 
 if [ ! -d $DEST_DIR ]
 then 
-    echo "$DEST_DIR does not exist....Please Check"
-    exit 1
+    echo "$DEST_DIR does not exist....Please check"
 fi
 
-FILES=$(find $SOURCE_DIR -name "*.log" -mtime +$DAYS)
-echo $FILES
+FILES=$(find ${SOURCE_DIR} -name "*.log" -mtime +14)
 
-if [ -z $FILES ]
+echo "Files: $FILES"
+
+if [ -z $FILES ] #true if files are empty,  makes it false
 then
-    echo "Files are not present greater than $DAYS"
+    echo "No old files than $DAYS"
     exit 1
-
+    
 else
-    echo "Files found"
+    echo "Files are found"
     ZIP_FILE="$DEST_DIR/app-logs-$TIMESTAMP.zip"
-    find ${SOURCE_DIR} -name "*.log" -mtime +$DAYS | zip "$ZIP_FILE" -@
+    find ${SOURCE_DIR} -name "*.log" -mtime +14 | zip "$ZIP_FILE" -@ #here we are zipping all the files returned by find command and file name is ZIP_FILE
 
+    #check if zip is successfully is done or not
     if [ -f $ZIP_FILE ] # -f is for files
     then
         echo "Successfully zipped files older than $DAYS"
@@ -80,4 +72,16 @@ else
         echo "Zipping the files is failed"
         exit 1
     fi
+    
+
 fi
+
+#to make this script work as command 
+#1.we need to give execution permission to this script command: chmod +x 20-backup.sh
+# to make it acessible to every one like pwd command everyone can access it 
+#All our command will be in /bin directory
+# when we move this script(20-backup.sh) to /bin directory any person can this script as command
+#command: sudo cp 20-backup.sh /bin/backup
+#cd
+#backup /home/ec2-user/app-logs /home/ec2-user/backup
+
