@@ -61,6 +61,7 @@ then
     exit 1
 
 else
+    echo "Files found"
     ZIP_FILE="$DEST_DIR/app-logs-$TIMESTAMP.zip"
     find ${SOURCE_DIR} -name "*.log" -mtime +$DAYS | zip "$ZIP_FILE" -@
 
@@ -76,5 +77,6 @@ else
 
     else
         echo "Zipping the files is failed"
+        exit 1
     fi
 fi
