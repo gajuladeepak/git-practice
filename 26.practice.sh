@@ -7,7 +7,7 @@ N="\e[0m"
 
 
 SOURCE_DIR=$1
-DEST_DIR= $2
+DEST_DIR=$2
 DAYS=${3:-14}
 TIMESTAMP=$(date +%Y-%m-%d-%H-%M-%S)
 
@@ -62,7 +62,7 @@ then
 
 else
     echo "Files found"
-    ZIP_FILE="${DEST_DIR}/app-logs-$TIMESTAMP.zip"
+    ZIP_FILE="$DEST_DIR/app-logs-$TIMESTAMP.zip"
     echo $ZIP_FILE
     find ${SOURCE_DIR} -name "*.log" -mtime +$DAYS | zip "$ZIP_FILE" -@
 
