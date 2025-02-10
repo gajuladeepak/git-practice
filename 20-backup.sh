@@ -5,6 +5,7 @@
 # before running the script create log files in app-logs
 #cd app-logs/
 #touch -d 20240101 mysql.log
+#sudo dnf install zip -y
 
 
 SOURCE_DIR=$1
@@ -55,7 +56,7 @@ else
     ZIP_FILE="$DEST_DIR/app-logs-$TIMESTAMP.zip"
     find ${SOURCE_DIR} -name "*.log" -mtime +14 | zip "$ZIP_FILE" -@ #here we are zipping all the files returned by find command and file name is ZIP_FILE
 
-    #check if zip is successfully created or not
+    #check if zip is successfully is done or not
     if [ -f $ZIP_FILE ] # -f is for files
     then
         echo "Successfully zipped files older than $DAYS"
