@@ -75,6 +75,6 @@ else
         done <<< $FILES
 
     else
-    echo "Zipping the files is failed"
+        echo "Zipping the files is failed"
     fi
 fi
