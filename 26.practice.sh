@@ -1,99 +1,45 @@
-#!/bin/bash
+#!bin/bash
 
-# R="\e[31m"
-# G="\e[32m"
-# Y="\e[33m"
-# N="\e[0m"
+R="\e[31m"
+G="\e[32m"
+Y="\e[33m"
+N="\e[0m"
 
+USERID=$(id -u)
 
-# SOURCE_DIR=$1
-# DEST_DIR=$2
-# DAYS=${3:-14}
-# TIMESTAMP=$(date +%Y-%m-%d-%H-%M-%S)
+CHECK_ROOT() {
+    if [ $USERID -ne 0 ]
+        echo "Please Provide Root Previligies"
+        exit 1
 
-# if [ -d $SOURCE_DIR ]
-# then
-#     echo "$SOURCE_DIR $G Exists $N"
-# else
-#     echo "$SOURCE_DIR $R does not exist $N"
-# fi
-
-# FILES=$(find $SOURCE_DIR -name "*.log" -mtime +14)
-# echo $FILES
-
-# while IFS= read -r file
-# do
-#     echo $file
-#     rm -rf $file
-#     echo "Deleting File: $file"
-
-# done <<< $FILES
-
-# USAGE(){
-#     echo -e "$R USAGE:: $N sh.practice <Source dir> <Destination Dir> <days(Optional)>"
-# }
-
-# if [ $# -lt 2 ]
-# then
-#     USAGE
-#     exit 1
-# fi
-
-# if [ ! -d $SOURCE_DIR ]
-# then 
-#     echo "$SOURCE_DIR does not exist....Please Check"
-#     exit 1
-# fi
-
-
-# if [ ! -d $DEST_DIR ]
-# then 
-#     echo "$DEST_DIR does not exist....Please Check"
-#     exit 1
-# fi
-
-# FILES=$(find ${SOURCE_DIR} -name "*.log" -mtime +$DAYS)
-# echo $FILES
-
-# if [ -z $FILES ]
-# then
-#     echo -e "$G Files are not present $N greater than $DAYS"
-#     exit 1
-
-# else
-#     echo -e "$G Files found $N"
-#     ZIP_FILE="$DEST_DIR/app-logs-$TIMESTAMP.zip"
-#     echo $ZIP_FILE
-#     find ${SOURCE_DIR} -name "*.log" -mtime +$DAYS | zip "$ZIP_FILE" -@
-
-#     if [ -f $ZIP_FILE ] # -f is for files
-#     then
-#         echo -e "$G Successfully zipped $N files older than $DAYS"
-
-#         #remove the files after zipping
-#         while IFS= read -r file #IFS, internal field separator, empty it will ignore white spaces. -r is for not to ignore special characters like /
-#         do 
-#             echo -e "$G Deleting file: $file $N"
-#             rm -rf $file
-
-#         done <<< $FILES 
-#     else
-#         echo -e "$R Zipping the files is failed $N"
-#         exit 1
-#     fi
-# fi
-
-DISK_USAGE=$(df -hT | grep xfs)
-DISK_THRESHOLD=5
-
-while IFS= read -r file
-do
-    USAGE=$(echo $file | grep xfs | awk -F " " '{print $6F}' | cut -d "%" -f1)
-    PARTITION=$(echo $file | grep xfs | awk -F " " '{print $NF}')
-    if [ $USAGE -ge $DISK_THRESHOLD ]
-    then
-        echo "$PARTITION is mor then $DISK_THRESHOLD, current value is $USAGE"
     fi
+}
+
+VALIDATE(){
+    if [ $1 -ne 0]
+        echo "$2 is....... $R FAILURE $N"
+        exit 1
+    else
+        echo "$2 is........ $G SUCCESS $N"
+    fi
+}
+
+
+CHECK_ROOT
+
+dnf list installed mysql  -y
+VALIDATE $? "Listing mysql"
+
+if [ $? -ne 0]
+    echo "Git is not installed... Installing it"
+    dnf install mysql -y
+    VALIDATE $? "Installing Mysql"
+else
+    echo "Git is already installed"
+fi
+
+
     
 
-done <<< $DISK_USAGE
+
+

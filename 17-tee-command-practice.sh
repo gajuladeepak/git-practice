@@ -34,7 +34,7 @@ USAGE(){
     exit 1
 }
 
-echo "Script started executing at: $(date)" &>>LOGFILE | tee -a $LOGFILE
+echo "Script started executing at: $(date)" | tee -a $LOGFILE
 CHECK_ROOT
 if [ $# -eq 0 ]
 then 
@@ -47,7 +47,7 @@ do
     if [ $? -ne 0 ]
     then
         echo "$package is not installed, going to install it.."| tee -a $LOGFILE
-        dnf install $package -y
+        dnf install $package -y &>>$LOGFILE
         VALIDATE $? "installing $package"
     else
         echo -e "$package is already $Y installed..nothing to do $N" | tee -a $LOGFILE
