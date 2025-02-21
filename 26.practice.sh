@@ -72,6 +72,8 @@ then
     echo "$SOURCE_DIR EXISTS"
 else
     echo "$SOURCE_DIR does not EXISTS"
+    exit 1
+fi
 
 FILES=$(find ${SOURCE_DIR} -name "*.log" -mtime +14)
 echo "Files: $FILES"
