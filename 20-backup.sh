@@ -56,8 +56,8 @@ else
     ZIP_FILE="$DEST_DIR/app-logs-$TIMESTAMP.zip"
     find ${SOURCE_DIR} -name "*.log" -mtime +14 | zip "$ZIP_FILE" -@ #here we are zipping all the files returned by find command and file name is ZIP_FILE
 
-    #check if zip is successfully is done or not
-    if [ -f $ZIP_FILE ] # -f is for files
+    #check if zip is present or not
+    if [ -f $ZIP_FILE ] # -f is for files #here we are checking whether the files is exist or not
     then
         echo "Successfully zipped files older than $DAYS"
 

@@ -1,4 +1,4 @@
-# #!bin/bash
+#!bin/bash
 
 # LOG_FOLDER="/var/log/shell-script"
 # SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
@@ -65,23 +65,83 @@
 
 # done
 
-SOURCE_DIR="/home/ec2-user/logs"
+# SOURCE_DIR="/home/ec2-user/logs"
 
-if [ -d $SOURCE_DIR ]
+# if [ -d $SOURCE_DIR ]
+# then
+#     echo "$SOURCE_DIR EXISTS"
+# else
+#     echo "$SOURCE_DIR does not EXISTS"
+#     exit 1
+# fi
+
+# FILES=$(find ${SOURCE_DIR} -name "*.log" -mtime +14)
+# echo "Files: $FILES"
+
+# while IFS= read -r file
+# do
+#     echo "Deleting the file: $file"
+#     rm -rf $file
+
+# done <<< $FILES
+
+
+SOURCE_DIR=$1
+DEST_DIR=$2
+DAYS=${3:-14}
+TIMESTAMP=$(date +%Y-%m-%d-%H-%M-%S)
+
+USAGE(){
+    echo "USAGE:: sh.26-practice <source-dir> <destination-dir> <days(optional)>"
+    exit 1
+}
+
+if [ $# -lt 2 ]
 then
-    echo "$SOURCE_DIR EXISTS"
-else
-    echo "$SOURCE_DIR does not EXISTS"
+    USAGE
+fi
+
+if [ ! -d $SOURCE_DIR ]
+then
+    echo -e "$Y THE $SOURCE_DIR DOES NOT EXIST $N"
     exit 1
 fi
 
-FILES=$(find ${SOURCE_DIR} -name "*.log" -mtime +14)
-echo "Files: $FILES"
 
-while IFS= read -r file
-do
-    echo "Deleting the file: $file"
-    rm -rf $file
+if [ ! -d $DEST_DIR ]
+then
+    echo -e "$Y THE $DEST_DIR DOES NOT EXIST $N"
+    exit 1
+fi
 
-done <<< $FILES
+FILES=$(find $(SOURCE_DIR) -name "*.log" -mtime +14)
+
+echo "$FILES"
+
+if [ -z $FILES ]
+then
+    echo "There are no old files than $DAYS"
+    exit 1
+else
+    echo "Files are found"
+    ZIP_FILE="$DEST_DIR/app-logs-$TIMESTAMP.zip"
+    find $(SOURCE_DIR) -name "*.log" -mtime +14 | zip "$ZIP_FILE" -@
+
+    if [ -f $ZIP_FILE ]
+    then
+        echo "Successfully zipped files older than $DAYS"
+        while IFS= read -r file
+        do
+            echo "DELETING FILE: $file"
+            rm -rf $file
+
+        done <<< $FILES
+    else
+        echo "Zipping the files is failed"
+        exit 1
+
+    fi
+
+
+fi
 
