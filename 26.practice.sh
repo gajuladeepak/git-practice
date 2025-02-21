@@ -46,11 +46,11 @@ CHECK_INPUT(){
     exit 1
 }
 
-if [ $# -eq 0 ]{
+if [ $# -eq 0 ]
 then
     CHECK_INPUT
 fi
-}
+
 
 for package in $@
 do
