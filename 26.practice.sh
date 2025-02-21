@@ -31,7 +31,7 @@ VALIDATE(){
 
 CHECK_ROOT
 
-dnf list installed mysql  -y
+dnf list installed mysql
 VALIDATE $? "Listing mysql"
 
 if [ $? -ne 0]
