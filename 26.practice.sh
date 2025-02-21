@@ -42,7 +42,7 @@ CHECK_ROOT
 
 for package in $@
 do
-    dnf list installed $package
+    dnf list installed $package &>>$LOG_FILE
     if [ $? -ne 0 ]
     then
         echo -e "$package is not installled.. $Y INSTALLING $N" | tee -a $LOG_FILE
@@ -50,7 +50,7 @@ do
         VALIDATE $? "INSTALLING $package"
     else
 
-        echo -e "$package is $Y ALREADY INSTALLED $N"
+        echo -e "$package is $Y ALREADY INSTALLED $N" | tee -a $LOG_FILE
     
     fi
 
