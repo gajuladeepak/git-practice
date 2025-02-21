@@ -42,7 +42,7 @@ CHECK_ROOT
 
 CHECK_INPUT(){
     echo -e " $R PROPER INPUT SHOULD BE GIVEN $N"
-    echo "$Y INPUT FORMAT:: sh 26.practice <package1> <package2> $N"
+    echo -e "$Y INPUT FORMAT:: sh 26.practice <package1> <package2> $N"
     exit 1
 }
 
