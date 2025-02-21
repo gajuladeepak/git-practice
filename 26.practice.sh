@@ -5,11 +5,14 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
+LOG_FOLDER="/var/log/expense-shell"
+SCRIPT_NAME=$(echo $0)
+
 USERID=$(id -u)
 
 CHECK_ROOT() {
     if [ $USERID -ne 0 ]
-        echo "Please Provide Root Previligies"
+        echo "Please Provide Root Previligies" | tee -a $LOG_FILE
         exit 1
 
     fi
