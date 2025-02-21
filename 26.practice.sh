@@ -43,11 +43,14 @@ for package in $@
 do
     dnf list installed $package
     if [ $? -ne 0 ]
+    then
         echo -e "$package is not installled.. $Y INSTALLING $N" | tee -a $LOG_FILE
         dnf install $package -y &>>$LOG_FILE
         VALIDATE $? "INSTALLING $package"
+    else
 
-    then
+        echo -e "$package is $Y ALREADY INSTALLED $N"
+    
     fi
 
 done
