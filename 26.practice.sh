@@ -33,7 +33,7 @@ CHECK_ROOT
 
 dnf list installed mysql
 
-if [ $? -ne 0]
+if [ $? -ne 0 ]
 then
     echo "mysql is not installed... Installing it"
     dnf install mysql -y
