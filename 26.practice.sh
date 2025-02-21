@@ -12,9 +12,8 @@ USERID=$(id -u)
 
 CHECK_ROOT() {
     if [ $USERID -ne 0 ]
-        echo "Please Provide Root Previligies" | tee -a $LOG_FILE
+        echo "Please Provide Root Previligies"
         exit 1
-
     fi
 }
 
