@@ -12,6 +12,7 @@ USERID=$(id -u)
 
 CHECK_ROOT() {
     if [ $USERID -ne 0 ]
+    then
         echo "Please Provide Root Previligies"
         exit 1
     fi
@@ -19,6 +20,7 @@ CHECK_ROOT() {
 
 VALIDATE(){
     if [ $1 -ne 0]
+    then
         echo "$2 is....... $R FAILURE $N"
         exit 1
     else
@@ -33,6 +35,7 @@ dnf list installed mysql  -y
 VALIDATE $? "Listing mysql"
 
 if [ $? -ne 0]
+then
     echo "Git is not installed... Installing it"
     dnf install mysql -y
     VALIDATE $? "Installing Mysql"
