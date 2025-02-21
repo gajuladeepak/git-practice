@@ -36,7 +36,7 @@ VALIDATE $? "Listing mysql"
 
 if [ $? -ne 0]
 then
-    echo "Git is not installed... Installing it"
+    echo "mysql is not installed... Installing it"
     dnf install mysql -y
     VALIDATE $? "Installing Mysql"
 else
