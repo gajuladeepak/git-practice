@@ -40,6 +40,17 @@ VALIDATE(){
 
 CHECK_ROOT
 
+CHECK_INPUT(){
+    echo -e " $R PROPER INPUT SHOULD BE GIVEN $N"
+    echo "$Y INPUT FORMAT:: sh 26.practice <package1> <package2> $N"
+}
+
+if [ $# -eq 0 ]{
+then
+    CHECK_INPUT
+
+}
+
 for package in $@
 do
     dnf list installed $package &>>$LOG_FILE
