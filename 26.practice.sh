@@ -6,14 +6,16 @@ Y="\e[33m"
 N="\e[0m"
 
 LOG_FOLDER="/var/log/expense-shell"
-SCRIPT_NAME=$(echo $0)
+SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
+TIMESTAMP=$(date +%Y-%m-%d-%H-%M-%S)
+LOG_FILE="$LOG_FOLDER/$SCRIPT_NAME-$TIMESTAMP"
 
 USERID=$(id -u)
 
 CHECK_ROOT() {
     if [ $USERID -ne 0 ]
     then
-        echo "Please Provide Root Previligies"
+        echo -e "$Y Please Provide Root Previligies $N" | tee -a $LOG_FILE
         exit 1
     fi
 }
@@ -21,25 +23,25 @@ CHECK_ROOT() {
 VALIDATE(){
     if [ $1 -ne 0 ]
     then
-        echo -e "$2 is....... $R FAILURE $N"
+        echo -e "$2 is....... $R FAILURE $N" | tee -a $LOG_FILE
         exit 1
     else
-        echo -e "$2 is........ $G SUCCESS $N"
+        echo -e "$2 is........ $G SUCCESS $N" | tee -a $LOG_FILE
     fi
 }
 
 
 CHECK_ROOT
 
-dnf list installed mysql
+dnf list installed mysql &>>$LOG_FILE
 
 if [ $? -ne 0 ]
 then
     echo "mysql is not installed... Installing it"
-    dnf install mysql -y
+    dnf install mysql -y &>>$LOG_FILE
     VALIDATE $? "Installing Mysql"
 else
-    echo "Git is already installed"
+    echo "Git is already installed" | tee -a $LOG_FILE
 fi
 
 
