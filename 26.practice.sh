@@ -33,7 +33,7 @@ VALIDATE(){
         echo -e "$2 command is..... $R FAILED $N" | tee -a $LOG_FILE
         exit 1
     else
-        echo -e "$2 command is..... $R SUCCESS $N" | tee -a $LOG_FILE
+        echo -e "$2 command is..... $G SUCCESS $N" | tee -a $LOG_FILE
     fi
 }
 
