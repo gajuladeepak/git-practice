@@ -51,13 +51,14 @@ else
         while IFS= read -r file
         do
 
-            echo "Deleting the file: $file"
+            echo -e "$Y Deleting the file: $file $N"
             rm -rf $file
+            echo -e "$G Deleted the file $file $N"
 
         done <<< $FILES
     else
-        echo "Zipping the files is failed"
-        exit
+        echo -e "$R Zipping the files is failed $N"
+        exit 1
     fi
 
         
