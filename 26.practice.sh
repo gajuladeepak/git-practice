@@ -39,6 +39,8 @@ echo $Files
 if [ -z $FILES ]
 then
     echo -e "$Y No Files are exist greater than $DAYS $N"
+    exit 1
+    
 
 else
     echo "$FILES are found"
