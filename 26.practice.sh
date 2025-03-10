@@ -1,69 +1,88 @@
-#!bin/bash
+#!/bin/bash
+
+#i will create a source folder(app-logs) in /home/ec2-user/app-logs /mkdir -d /home/ec2-user/app-logs
+#i will create a destination folder(backup) in /home/ec2-user/backup / mkdir -d /home/ec2-user/backup
+# before running the script create log files in app-logs
+#cd app-logs/
+#touch -d 20240101 mysql.log
+#sudo dnf install zip -y
+
 
 SOURCE_DIR=$1
 DEST_DIR=$2
+TIMESTAMP=$(date +%Y-%m-%d-%H-%M-%S)
 
 R="\e[31m"
 G="\e[32m"
-Y="\e[33m"
 N="\e[0m"
-TIMESTAMP=$(date +%Y-%m-%d-%H-%M-%S)
+Y="\e[33m"
 
-DAYS=${3:-14}
+DAYS=${3:-14} # if $3 is empty, default is 14 days
 
-if [ ! -d $SOURCE_DIR ]
-then 
-    echo -e "$SOURCE_DIR does not exist"
-fi
-
-
-if [ ! -d $DEST_DIR ]
-then 
-    echo -e "$DEST_DIR does not exist"
-fi
-
-USAGE() {
-    echo "Please provide valid inputs"
-    echo -e "$Y 26.practice.sh <source-dir> <dest-dir> $N"
-    exit 1
+USAGE(){
+    echo -e "$R USAGE:: $N sh 20-backup.sh <source> <destination> <days(optional)>"
 }
 
+#cheking whether the source / destination are provided
 if [ $# -lt 2 ]
 then
     USAGE
+    exit 1
 fi
 
-FILES=$(find $SOURCE_DIR -name "*.log" -mtime +14)
-echo $Files
+#checking whether the source directory exists or not
 
-if [ -z $FILES ]
+if [ ! -d $SOURCE_DIR ]
+then 
+    echo "$SOURCE_DIR does not exist....Please check"
+fi
+
+if [ ! -d $DEST_DIR ]
+then 
+    echo "$DEST_DIR does not exist....Please check"
+fi
+
+FILES=$(find ${SOURCE_DIR} -name "*.log" -mtime +14)
+
+echo "Files: $FILES"
+
+if [ -z $FILES ] #true if files are empty,  makes it false
 then
-    echo -e "$Y No Files are exist greater than $DAYS $N"
+    echo "No old files than $DAYS"
     exit 1
     
-
 else
-    echo "$FILES are found"
+    echo "Files are found"
     ZIP_FILE="$DEST_DIR/app-logs-$TIMESTAMP.zip"
-    find $SOURCE_DIR -name "*log" -mtime +14 | zip "$ZIP_FILE" -@
+    find ${SOURCE_DIR} -name "*.log" -mtime +14 | zip "$ZIP_FILE" -@ #here we are zipping all the files returned by find command and file name is ZIP_FILE
 
-    if [ -f $ZIP_FILE ]
+    #check if zip is present or not
+    if [ -f $ZIP_FILE ] # -f is for files #here we are checking whether the files is exist or not
     then
-        echo "Successfully zpping files older than $DAYS"
-        while IFS= read -r file
-        do
+        echo "Successfully zipped files older than $DAYS"
 
-            echo -e "$Y Deleting the file: $file $N"
-            rm -rf $file
-            echo -e "$G Deleted the file $file $N"
+        #remove the files after zipping
+        # while IFS= read -r file #IFS, internal field separator, empty it will ignore white spaces. -r is for not to ignore special characters like /
+        # do 
+        #     echo "Deleting file: $file"
+        #     rm -rf $file
 
-        done <<< $FILES
+        # done <<< $FILES 
     else
-        echo -e "$R Zipping the files is failed $N"
+        echo "Zipping the files is failed"
         exit 1
     fi
-
-        
+    
 
 fi
+
+#to make this script work as command 
+#1.we need to give execution permission to this script command: chmod +x 20-backup.sh
+# to make it acessible to every one like pwd command everyone can access it 
+#All our command will be in /bin directory
+# when we move this script(20-backup.sh) to /bin directory any person can this script as command
+#command: sudo cp 20-backup.sh /bin/backup
+#cd
+#backup /home/ec2-user/app-logs /home/ec2-user/backup
+
 
