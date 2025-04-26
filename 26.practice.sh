@@ -39,14 +39,14 @@
 SOURCE_DIR=$1
 DEST_DIR=$2
 TIMESTAMP=$(date +%Y-%m-%d-%H-%M-%S)
-DAYS=$(3:-14)
+DAYS=${3:-14}
 
 USAGE(){
     echo "Please provide source dir and destination dir"
     echo "USAGE:: sh practice.sh /home/ec2-user/app-logs /home/ec2-user/backup"
 }
 
-if [ $# -lt 2]
+if [ $# -lt 2 ]
 then 
     USAGE
     exit 1
