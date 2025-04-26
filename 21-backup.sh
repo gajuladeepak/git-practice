@@ -58,3 +58,14 @@ then
 else
     echo "No files older than $DAYS"
 fi
+
+# ZIP_FILE="$DEST_DIR/app-logs-$TIMESTAMP.zip"
+# ZIP_FILE → This is a new variable that will store the name/path of your zip file.
+
+# "$DEST_DIR" → A variable holding the destination directory where the zip file should be saved. For example, it could be something like /home/user/backups.
+
+# $TIMESTAMP → A variable holding the current date and time, usually in a format like 20250405_1530, used to make the filename unique.
+
+# app-logs-$TIMESTAMP.zip → This forms a zip filename like app-logs-20250405_1530.zip.
+
+# Putting it all together:

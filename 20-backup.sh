@@ -12,6 +12,7 @@ SOURCE_DIR=$1
 DEST_DIR=$2
 TIMESTAMP=$(date +%Y-%m-%d-%H-%M-%S)
 
+
 R="\e[31m"
 G="\e[32m"
 N="\e[0m"
@@ -84,5 +85,10 @@ fi
 #command: sudo cp 20-backup.sh /bin/backup
 #cd
 #backup /home/ec2-user/app-logs /home/ec2-user/backup
+
+
+#If $ZIP_FILE contains an absolute or relative file path, -f $ZIP_FILE checks if that specific file exists at that location.
+#The -f option is used to check if a file exists and is a regular file 
+#z $FILES: Checks if the variable $FILES is empty or not set.
 
 
