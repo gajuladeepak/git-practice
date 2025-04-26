@@ -20,9 +20,9 @@ echo "$FILES"
 
 while IFS= read -r file
 do
-    echo -e "$Y DELETING FILE $file $N"
+    echo -e "$Y DELETED FILE $file $N"
     rm -rf $file
-    echo -e "$G DELETING FILE $file $N"
+    echo -e "$G DELETED FILE $file $N"
 
 
 done <<< $FILES
