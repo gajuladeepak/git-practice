@@ -18,6 +18,14 @@ fi
 FILES=$(find $SOURCE_DIR -name "*.log" -mtime +14)
 echo "$FILES"
 
+if [ -z $FILES ]
+then 
+    echo -e "$Y There are no files greater than 14 days $N"
+    exit
+else
+    echo -e "$G Files are found $N"
+fi
+
 while IFS= read -r file
 do
     echo -e "$Y DELETED FILE $file $N"
