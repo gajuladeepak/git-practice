@@ -1,4 +1,4 @@
-SOURCE_DIR="home/ec2-user/logs"
+SOURCE_DIR="/home/ec2-user/logs"
 R="\e[31m"
 Y="\e[33m"
 G="\e[32m"
