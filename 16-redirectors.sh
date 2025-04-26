@@ -3,7 +3,7 @@
 #usually logs will be in /var/log for linux
 #we need to create a folder in /var/log 
 #let say i am creating a folder named (shell-script) in /var/log/shell-script
-#file name should in specified foemat
+#file name should in specified format
 
 #tee command(writs logs on multiple destinations)
 #everytime checking the logs by navigating to logs file is hectic task
